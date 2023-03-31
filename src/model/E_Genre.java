@@ -1,0 +1,13 @@
+package model;
+
+public enum E_Genre {
+	ADVENTURE,
+	ROMANCE,
+	HORROR,
+	THRILLER,
+	FANTASY,
+	SPORT,
+	BIOGRAPHY,
+	SCIENCE,
+	MUSIC
+}

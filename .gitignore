@@ -1,2 +1,5 @@
 
 *.prefs
+*.xml
+*.class
+*.MF
