@@ -1,40 +1,83 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
 @Table(name = "loans")
-@Getter @Setter
-public class Loan {
+public class Loan implements Serializable {
 	
 	@Id
-	@Column(name = "user_on_loan")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long loan_id;
+	//@ManyToOne
+	@Column(name = "user_id")
 	private User onLoanTo;
-	@Column(name = "article")
+	@Column(name = "article_id")
 	private Article articleOnLoan;
-	@Column(name = "loan_start")
-	private LocalDate loanStart;
-	@Column(name = "expected_loan_end")
+	private LocalDate loan_start;
+	@Column(name = "loan_exp_end")
 	private LocalDate loanExpectedEnd;
-	@Column(name = "actual_loan_end")
+	@Column(name = "loan_act_end")
 	private LocalDate loanActualEnd;
 	
 	public Loan() {
 		super();
 	}
 
-	public Loan(User onLoanTo, Article articleOnLoan, LocalDate loanStart, LocalDate loanExpectedEnd,
-			LocalDate loanActualEnd) {
+
+	public Loan(User onLoanTo, Article articleOnLoan, LocalDate loan_start, LocalDate loanActualEnd) {
 		super();
 		this.onLoanTo = onLoanTo;
 		this.articleOnLoan = articleOnLoan;
-		this.loanStart = loanStart;
-		this.loanExpectedEnd = loanExpectedEnd;
+		this.loan_start = loan_start;
+		this.loanExpectedEnd = loan_start.plusMonths(1);
 		this.loanActualEnd = loanActualEnd;
+	}
+
+	public User getOnLoanTo() {
+		return onLoanTo;
+	}
+
+	public void setOnLoanTo(User onLoanTo) {
+		this.onLoanTo = onLoanTo;
+	}
+	
+	public Article getArticleOnLoan() {
+		return articleOnLoan;
+	}
+
+	public void setArticleOnLoan(Article articleOnLoan) {
+		this.articleOnLoan = articleOnLoan;
+	}
+
+	public LocalDate getLoan_start() {
+		return loan_start;
+	}
+
+	public void setLoan_start(LocalDate loan_start) {
+		this.loan_start = loan_start;
+	}
+
+	public LocalDate getLoanExpectedEnd() {
+		return loanExpectedEnd;
+	}
+
+	public void setLoanExpectedEnd(LocalDate loanExpectedEnd) {
+		this.loanExpectedEnd = loanExpectedEnd;
+	}
+
+	public LocalDate getLoanActualEnd() {
+		return loanActualEnd;
+	}
+
+	public void setLoanActualEnd(LocalDate loanActualEnd) {
+		this.loanActualEnd = loanActualEnd;
+	}
+
+	public Long getLoan_id() {
+		return loan_id;
 	}
 	
 }

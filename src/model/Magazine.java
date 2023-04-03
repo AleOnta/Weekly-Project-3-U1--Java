@@ -6,11 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "magazines")
-@Getter @Setter
+@DiscriminatorValue("Article-Mag")
 public class Magazine extends Article {
 	
 	@Enumerated(EnumType.STRING)
+	@Column(name = "m_periodicity")
 	private E_Periodicity periodicity;
 
 	public Magazine() {
@@ -26,7 +26,13 @@ public class Magazine extends Article {
 	public String toString() {
 		return "Magazine [" + super.toString() + ", periodicity=" + periodicity + "]";
 	}
-	
-	
+
+	public E_Periodicity getPeriodicity() {
+		return periodicity;
+	}
+
+	public void setPeriodicity(E_Periodicity periodicity) {
+		this.periodicity = periodicity;
+	}
 	
 }
