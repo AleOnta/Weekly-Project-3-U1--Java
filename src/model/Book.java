@@ -25,11 +25,6 @@ public class Book extends Article {
 		this.genre = genre;
 	}
 
-	@Override
-	public String toString() {
-		return "Book [" + super.toString() + ", author=" + author + ", genre=" + genre + "]";
-	}
-
 	public String getAuthor() {
 		return author;
 	}
@@ -46,4 +41,12 @@ public class Book extends Article {
 		this.genre = genre;
 	}
 
+	@Override
+	public String toString() {
+		return "Book [Title=" + getTitle() + ", ReleaseYear="+ getReleaseYear() + ", NumberOfPage=" + getNumberOfPage() 
+		+ ", ISBNCode=" + getISBNCode() + ", author=" + author + ", genre=" + genre + "]";
+	}
+
+	
+		
 }

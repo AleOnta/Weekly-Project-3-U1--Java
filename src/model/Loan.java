@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -11,15 +12,16 @@ public class Loan implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long loan_id;
-	//@ManyToOne
-	@Column(name = "user_id")
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User onLoanTo;
-	@Column(name = "article_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "article_id")
 	private Article articleOnLoan;
 	private LocalDate loan_start;
 	@Column(name = "loan_exp_end")
 	private LocalDate loanExpectedEnd;
-	@Column(name = "loan_act_end")
+	@Column(name = "loan_act_end", nullable = true)
 	private LocalDate loanActualEnd;
 	
 	public Loan() {

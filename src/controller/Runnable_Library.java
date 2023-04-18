@@ -21,27 +21,49 @@ public class Runnable_Library {
 	
 	public static void main(String[] args) {
 		
-		Article articleToAdd = lDao.getByISBN(4);
-		List<User> usersList = lDao.getAllUsers();
+		// CREATING USERS
+		User u1 = new User("Alessandro", "Ontani", LocalDate.of(1999, 01, 11));
+		User u2 = new User("Enzo", "Rino", LocalDate.of(1977, 06, 15));
+		User u3 = new User("Paola", "Perego", LocalDate.of(1980, 11, 05));
+		User u4 = new User("Sara", "Santi", LocalDate.of(1997, 04, 30));
+		User u5 = new User("Franco", "Bruno", LocalDate.of(1955, 8, 20));
+		lDao.addUser(u1);
+		lDao.addUser(u2);
+		lDao.addUser(u3);
+		lDao.addUser(u4);
+		lDao.addUser(u5);
 		
-		Loan l1 = new Loan(usersList.get(0), articleToAdd, LocalDate.of(2023, 04, 01), LocalDate.of(2023, 05, 01));
+		// CREATING ARTICLES
+		lDao.addArticle(new Book("I nani", 1989, 546, "GiorgioVanni", E_Genre.BIOGRAPHY));
+		lDao.addArticle(new Book("Alla rotonda", 2002, 158, "Marco gia", E_Genre.MUSIC));
+		lDao.addArticle(new Book("La firma", 1864, 332, "Giada veri", E_Genre.SCIENCE));
+		lDao.addArticle(new Magazine("TODAY", 2022, 54, E_Periodicity.WEEKLY));
+		lDao.addArticle(new Magazine("IERI", 2023, 35, E_Periodicity.MONTHLY));
+		lDao.addArticle(new Magazine("DOMANI", 2021, 78, E_Periodicity.HALF_YEARLY));
 		
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(l1);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-		} finally {
-			em.close();
-		}
+		
+		List<User> users = lDao.getAllUsers();
+		List<Article> archive = lDao.getAllArticles();
+		
+		// CREATING LOANS
+		Loan l1 = new Loan(users.get(0), archive.get(0), LocalDate.of(2023, 03, 20), LocalDate.of(2023, 04, 16));
+		Loan l2 = new Loan(users.get(1), archive.get(1), LocalDate.now(), null);
+		Loan l3 = new Loan(users.get(0), archive.get(2), LocalDate.now(), null);
+		Loan l4 = new Loan(users.get(2), archive.get(3), LocalDate.of(2023, 01, 18), LocalDate.of(2023, 02, 25));
+		Loan l5 = new Loan(users.get(4), archive.get(4), LocalDate.of(2023, 02, 05), LocalDate.of(2023, 03, 10));
+		lDao.addLoan(l1);
+		lDao.addLoan(l2);
+		lDao.addLoan(l3);
+		lDao.addLoan(l4);
+		lDao.addLoan(l5);
+		
 	}
 	
+	// STARTED WORKING ON MENU - STILL ONGOING
 	public static void addToCatalogue() {
-		System.out.println("Okay then, what kind of element would you like to add?");
-		System.out.println("1 - a Book | 2 - a Magazine");
-		int userPick = askFor();
+		System.out.println("OPTIONS:");
+		System.out.println("1 - a Book | 2 - a Magazine | 0 - toExit the system");
+		int userPick = askFor(1, 2);
 		
 		System.out.println("Okay, let's start building the new item:");
 		System.out.println("Insert the title of the item");
@@ -67,13 +89,13 @@ public class Runnable_Library {
 		}
 	}
 	
-	public static int askFor() {
+	public static int askFor(int s, int f) {
         boolean isRunning = true;
         int pick = 0;
         while (isRunning) {
             if (input.hasNextInt()) {
                 pick = input.nextInt();
-                if (pick < 1 || pick > 2) {
+                if (pick < s || pick > f) {
                     System.out.println("invalid value, insert again");
                     input.nextLine();
                     continue;

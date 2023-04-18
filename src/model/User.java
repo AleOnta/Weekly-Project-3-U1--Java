@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -21,8 +22,8 @@ public class User implements Serializable {
 	private String name;
 	private String lastname;
 	private LocalDate birthdate;
-	//@OneToMany(mappedBy = "onLoanTo", cascade = CascadeType.ALL)
-	//private Set<Loan> userLoans;
+	@OneToMany(mappedBy = "onLoanTo", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	private List<Loan> usersLoans;
 	
 	
 	public User() {
@@ -59,15 +60,7 @@ public class User implements Serializable {
 	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
-
-	/*public Set<Loan> getUserLoans() {
-		return userLoans;
-	}
-
-	public void setUserLoans(Set<Loan> userLoans) {
-		this.userLoans = userLoans;
-	}*/
-
+	
 	public Long getCardId() {
 		return cardId;
 	}

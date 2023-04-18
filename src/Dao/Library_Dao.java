@@ -100,11 +100,54 @@ public class Library_Dao implements I_Library_Dao {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<Article> getAllArticles() {
+		
+		Query q = em.createNamedQuery("Article.getAll");
+		
+		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<User> getAllUsers() {
 		
 		Query q = em.createNamedQuery("User.getAll");
 		
 		return q.getResultList();
+	}
+	
+	public void addUser(User u) {
+		try {
+			em.getTransaction().begin();
+			em.persist(u);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+		
+	}
+	
+	public User getUserById(Long id) {
+		User u = null;
+		try {
+			em.getTransaction().begin();
+			u = em.find(User.class, Long.valueOf(id));
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	public void addLoan(Loan l) {
+		try {
+			em.getTransaction().begin();
+			em.persist(l);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+		
 	}
 	
 	

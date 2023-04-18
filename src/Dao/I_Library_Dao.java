@@ -25,4 +25,6 @@ public interface I_Library_Dao {
 	public List<Loan> getExpiredLoans();
 	
 	public List<User> getAllUsers();
+
+	public List<Article> getAllArticles();
 }

@@ -22,11 +22,6 @@ public class Magazine extends Article {
 		this.periodicity = periodicity;
 	}
 
-	@Override
-	public String toString() {
-		return "Magazine [" + super.toString() + ", periodicity=" + periodicity + "]";
-	}
-
 	public E_Periodicity getPeriodicity() {
 		return periodicity;
 	}
@@ -34,5 +29,13 @@ public class Magazine extends Article {
 	public void setPeriodicity(E_Periodicity periodicity) {
 		this.periodicity = periodicity;
 	}
+
+	@Override
+	public String toString() {
+		return "Magazine [Title=" + getTitle() + ", ReleaseYear=" + getReleaseYear() + ", NumberOfPage=" 
+		+ getNumberOfPage() + ", ISBNCode=" + getISBNCode() + ", periodicity=" + periodicity + "]";
+	}
+	
+	
 	
 }

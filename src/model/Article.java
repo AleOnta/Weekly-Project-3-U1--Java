@@ -1,9 +1,8 @@
 package model;
 
+import java.util.List;
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +25,8 @@ public class Article implements Serializable {
 	private Integer releaseYear;
 	@Column(name = "number_of_page")
 	private Integer numberOfPage;
+	@OneToMany(mappedBy = "articleOnLoan", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	private List<Loan> loan;
 	
 	public Article() {
 		super();
